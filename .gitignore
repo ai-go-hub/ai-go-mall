@@ -1,0 +1,29 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.sw?
+
+# Local config
+*.local.*
+.env.*
+
+# Go
+/bin/
+/vendor/
+*.exe
+*.test
+*.out
+
+# Frontend
+*.css.map
+*.js.map
+node_modules/
+/dist/
+
+# Build output
+/tmp/
+/log/
