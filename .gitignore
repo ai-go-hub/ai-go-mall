@@ -9,7 +9,7 @@ Thumbs.db
 
 # Local config
 *.local.*
-.env.*
+.env.yaml
 
 # Go
 /bin/
