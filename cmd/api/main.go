@@ -23,6 +23,10 @@ func main() {
 	cfg := config.Get()
 
 	r := gin.Default()
+
+	// 注册数据库中间件
+	r.Use(database.Middleware())
+
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",

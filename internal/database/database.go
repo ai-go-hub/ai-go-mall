@@ -6,6 +6,7 @@ import (
 
 	"ai-go-mall/config"
 
+	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
@@ -61,6 +62,19 @@ func Init() error {
 // 返回全局数据库实例
 func GetDB() *gorm.DB {
 	return db
+}
+
+// 将 *gorm.DB 注入 gin.Context，绑定当前请求的 context
+func Middleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Set("db", GetDB().WithContext(c.Request.Context()))
+		c.Next()
+	}
+}
+
+// 从 gin.Context 中获取带请求上下文的 *gorm.DB
+func FromContext(c *gin.Context) *gorm.DB {
+	return c.MustGet("db").(*gorm.DB)
 }
 
 // 根据配置构建 PostgreSQL DSN
