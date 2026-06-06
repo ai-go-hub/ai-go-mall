@@ -1,13 +1,14 @@
 package model
 
-var models []any
+var registered []any
 
 // 注册需要自动迁移的模型，各模型文件内可通过 init() 机制实现自动调用
-func Register(m any) {
-	models = append(models, m)
+// 支持一次注册多个模型，如 Register(&User{}, &Product{}, &Order{})
+func Register(models ...any) {
+	registered = append(registered, models...)
 }
 
 // 返回所有已注册的模型，供 database.Init 的 AutoMigrate 使用
 func All() []any {
-	return models
+	return registered
 }
