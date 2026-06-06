@@ -1,0 +1,76 @@
+# Air 配置文件 - 开发环境热重载
+# 文档: https://github.com/air-verse/air
+
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  # 监听这些扩展名的文件变化
+  watch_ext = ["go", "yaml", "yml", "env"]
+
+  # 监听这些目录
+  watch_dir = ["cmd", "internal", "config"]
+
+  # 忽略这些目录
+  exclude_dir = ["tmp", "vendor", ".git", "node_modules"]
+
+  # 忽略这些文件
+  exclude_file = []
+
+  # 排除正则匹配的文件（如测试文件）
+  exclude_regex = ["_test\\.go$"]
+
+  # 排除不变的目录
+  exclude_unchanged = true
+
+  # 监听根目录下的 .env 文件变化
+  follow_symlink = true
+
+  # 日志目录
+  log = "tmp/air.log"
+
+  # 执行的命令
+  cmd = "go build -o ./tmp/main.exe ./cmd/api"
+
+  # 运行的二进制文件
+  bin = "./tmp/main.exe"
+
+  # 运行时的参数
+  args_bin = []
+
+  # 延迟触发构建（毫秒），避免频繁重建
+  delay = 1000
+
+  # 发生错误时停止运行
+  stop_on_error = true
+
+  # 发送中断信号后等待时间
+  kill_delay = 500
+
+  # 构建时发送中断信号
+  send_interrupt = true
+
+  # 构建时杀死进程
+  kill_finished = true
+
+[log]
+  # 显示日志时间
+  time = true
+
+  # 只显示主日志
+  main_only = false
+
+[color]
+  # 自定义日志颜色
+  main = "magenta"
+  watcher = "cyan"
+  build = "yellow"
+  runner = "green"
+
+[misc]
+  # 退出时清理临时目录
+  clean_on_exit = true
+
+[screen]
+  # 保持滚动
+  clear_on_rebuild = true
