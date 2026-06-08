@@ -23,8 +23,8 @@ func NewHandler[T any](svc service.IService[T]) *Handler[T] {
 // 只使用 GET、POST，不使用 PUT、DELETE 等请求方式（除 GET/POST 外的请求方式，在国内的 CDN/全站加速 等场景兼容性极差）
 func (h *Handler[T]) RegisterBaseRoutes(group *gin.RouterGroup) {
 	group.POST("/create", h.Create)
-	group.GET("/rows", h.Rows)
-	group.GET("/row/:id", h.Row)
+	group.GET("/list", h.List)
+	group.GET("/get/:id", h.Get)
 	group.POST("/update/:id", h.Update)
 	group.POST("/delete/:id", h.Delete)
 }
@@ -45,9 +45,9 @@ func (h *Handler[T]) Create(c *gin.Context) {
 	response.Success(c)
 }
 
-// Rows 获取列表
-func (h *Handler[T]) Rows(c *gin.Context) {
-	entities, err := h.svc.Rows(c)
+// List 获取列表
+func (h *Handler[T]) List(c *gin.Context) {
+	entities, err := h.svc.List(c)
 	if err != nil {
 		response.Fail(c, response.WithMessage("查询失败: "+err.Error()))
 		return
@@ -56,15 +56,15 @@ func (h *Handler[T]) Rows(c *gin.Context) {
 	response.Success(c, response.WithData(entities))
 }
 
-// Row 获取单条记录
-func (h *Handler[T]) Row(c *gin.Context) {
+// Get 获取单条记录
+func (h *Handler[T]) Get(c *gin.Context) {
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
 	if err != nil {
 		response.Fail(c, response.WithMessage("无效的 ID"))
 		return
 	}
 
-	entity, err := h.svc.Row(c, uint(id))
+	entity, err := h.svc.Get(c, uint(id))
 	if err != nil {
 		response.Fail(c, response.WithMessage("记录不存在"))
 		return

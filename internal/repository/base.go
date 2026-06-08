@@ -10,8 +10,8 @@ import (
 // IRepository 通用仓库接口
 type IRepository[T any] interface {
 	Create(c *gin.Context, entity *T) error
-	Row(c *gin.Context, id uint) (*T, error)
-	Rows(c *gin.Context, scopes ...func(*gorm.Statement)) ([]T, error)
+	Get(c *gin.Context, id uint) (*T, error)
+	List(c *gin.Context, scopes ...func(*gorm.Statement)) ([]T, error)
 	Update(c *gin.Context, id uint, entity T) error
 	Delete(c *gin.Context, id uint) error
 }
@@ -62,8 +62,8 @@ func (r *Repository[T]) Create(c *gin.Context, entity *T) error {
 	return gorm.G[T](r.GetDB()).Create(c.Request.Context(), entity)
 }
 
-// Row 根据主键 ID 查询单条记录
-func (r *Repository[T]) Row(c *gin.Context, id uint) (*T, error) {
+// Get 根据主键 ID 查询单条记录
+func (r *Repository[T]) Get(c *gin.Context, id uint) (*T, error) {
 	entity, err := gorm.G[T](r.GetDB()).Where("id = ?", id).First(c.Request.Context())
 	if err != nil {
 		return nil, err
@@ -71,8 +71,8 @@ func (r *Repository[T]) Row(c *gin.Context, id uint) (*T, error) {
 	return &entity, nil
 }
 
-// Rows 查询全部记录，支持 GORM Scopes 动态条件
-func (r *Repository[T]) Rows(c *gin.Context, scopes ...func(*gorm.Statement)) ([]T, error) {
+// List 查询全部记录，支持 GORM Scopes 动态条件
+func (r *Repository[T]) List(c *gin.Context, scopes ...func(*gorm.Statement)) ([]T, error) {
 	return gorm.G[T](r.GetDB()).Scopes(scopes...).Find(c.Request.Context())
 }
 

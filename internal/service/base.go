@@ -17,8 +17,8 @@ type Filter struct {
 // IService 通用服务接口
 type IService[T any] interface {
 	Create(c *gin.Context, entity *T) error
-	Row(c *gin.Context, id uint) (*T, error)
-	Rows(c *gin.Context, filters ...Filter) ([]T, error)
+	Get(c *gin.Context, id uint) (*T, error)
+	List(c *gin.Context, filters ...Filter) ([]T, error)
 	Update(c *gin.Context, id uint, entity T) error
 	Delete(c *gin.Context, id uint) error
 }
@@ -38,14 +38,14 @@ func (s *Service[T]) Create(c *gin.Context, entity *T) error {
 	return s.repo.Create(c, entity)
 }
 
-// Row 根据主键 ID 查询单条记录
-func (s *Service[T]) Row(c *gin.Context, id uint) (*T, error) {
-	return s.repo.Row(c, id)
+// Get 根据主键 ID 查询单条记录
+func (s *Service[T]) Get(c *gin.Context, id uint) (*T, error) {
+	return s.repo.Get(c, id)
 }
 
-// Rows 查询全部记录
-func (s *Service[T]) Rows(c *gin.Context, filters ...Filter) ([]T, error) {
-	return s.repo.Rows(c, buildScopes(filters)...)
+// List 查询全部记录
+func (s *Service[T]) List(c *gin.Context, filters ...Filter) ([]T, error) {
+	return s.repo.List(c, buildScopes(filters)...)
 }
 
 // Update 根据主键 ID 部分更新记录，子类可覆写添加业务校验
