@@ -120,7 +120,7 @@ func Get() Config {
 }
 
 // 获取 Viper 全局单例
-func GetViper() *viper.Viper {
+func Viper() *viper.Viper {
 	return vip
 }
 

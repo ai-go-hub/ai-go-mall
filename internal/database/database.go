@@ -68,14 +68,14 @@ func Init() error {
 }
 
 // 返回全局数据库实例
-func GetDB() *gorm.DB {
+func DB() *gorm.DB {
 	return db
 }
 
 // 将 *gorm.DB 注入 gin.Context，绑定当前请求的 context
 func Middleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Set("db", GetDB().WithContext(c.Request.Context()))
+		c.Set("db", DB().WithContext(c.Request.Context()))
 		c.Next()
 	}
 }

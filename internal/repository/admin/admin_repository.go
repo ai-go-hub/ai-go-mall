@@ -22,7 +22,7 @@ func NewRepository() *Repository {
 
 // FindByUsername 根据用户名查询管理员
 func (r *Repository) FindByUsername(c *gin.Context, username string) (*model.Admin, error) {
-	admin, err := gorm.G[model.Admin](r.GetDB()).Where("username = ?", username).First(c.Request.Context())
+	admin, err := gorm.G[model.Admin](r.DB()).Where("username = ?", username).First(c.Request.Context())
 	if err != nil {
 		return nil, err
 	}
@@ -33,7 +33,7 @@ func (r *Repository) FindByUsername(c *gin.Context, username string) (*model.Adm
 func (r *Repository) UpdateLoginInfo(c *gin.Context, id uint, loginIP string) error {
 	// 注意：login_failure 置为 0 是零值，而基仓储的 Update 使用 struct 更新时，默认将跳过零值字段，
 	// 所以需要单独使用 map[string]any 更新
-	_, err := gorm.G[map[string]any](r.GetDB()).Table(model.Admin{}.TableName()).
+	_, err := gorm.G[map[string]any](r.DB()).Table(model.Admin{}.TableName()).
 		Where("id = ?", id).
 		Updates(c.Request.Context(), map[string]any{
 			"last_login_ip": loginIP,
@@ -45,7 +45,7 @@ func (r *Repository) UpdateLoginInfo(c *gin.Context, id uint, loginIP string) er
 
 // IncrementLoginFailure 增加登录失败次数
 func (r *Repository) IncrementLoginFailure(c *gin.Context, id uint) error {
-	_, err := gorm.G[model.Admin](r.GetDB()).
+	_, err := gorm.G[model.Admin](r.DB()).
 		Where("id = ?", id).
 		Update(c.Request.Context(), "login_failure", gorm.Expr("login_failure + ?", 1))
 	return err
