@@ -125,6 +125,6 @@ func Viper() *viper.Viper {
 }
 
 // 是否已经初始化
-func IsInit() bool {
+func Initialized() bool {
 	return vip != nil
 }
