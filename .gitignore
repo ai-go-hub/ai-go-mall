@@ -21,7 +21,7 @@ Thumbs.db
 *.css.map
 *.js.map
 node_modules/
-/dist/
+dist/
 
 # Build output
 /tmp/
