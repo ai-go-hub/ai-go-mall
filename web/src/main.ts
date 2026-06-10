@@ -1,16 +1,19 @@
-import ElementPlus from 'element-plus'
+import elementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/display.css'
 import mitt from 'mitt'
 import { createApp } from 'vue'
 import App from './App.vue'
+import { setupI18n } from '/@/lang/index'
 import pinia from '/@/stores/index'
 
-function start() {
+async function start() {
     const app = createApp(App)
 
     app.use(pinia)
-    app.use(ElementPlus)
+    app.use(elementPlus)
+
+    await setupI18n(app)
 
     app.mount('#app')
 
