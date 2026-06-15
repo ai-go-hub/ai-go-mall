@@ -1,0 +1,7 @@
+/* 修复 Chrome 浏览器输入框内选中字符行高异常的问题开始 <<< */
+.el-input {
+    .el-input__inner {
+        line-height: calc(var(--el-input-height, 40px) - 4px);
+    }
+}
+/* 修复 Chrome 浏览器输入框内选中字符行高异常的问题结束 >>> */

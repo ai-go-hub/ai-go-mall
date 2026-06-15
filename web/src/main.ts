@@ -7,6 +7,7 @@ import App from './App.vue'
 import { setupI18n } from '/@/lang/index'
 import router from '/@/router/index'
 import pinia from '/@/stores/index'
+import '/@/styles/index.scss'
 
 async function start() {
     const app = createApp(App)
