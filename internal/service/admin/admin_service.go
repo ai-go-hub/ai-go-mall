@@ -2,12 +2,15 @@ package admin
 
 import (
 	"errors"
+	"time"
 
+	"ai-go-mall/internal/infra/token"
 	"ai-go-mall/internal/model"
 	repoAdmin "ai-go-mall/internal/repository/admin"
 	"ai-go-mall/internal/service"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -29,6 +32,7 @@ func NewService(repo *repoAdmin.Repository) *Service {
 type LoginRequest struct {
 	Username string `form:"username" binding:"required"`
 	Password string `form:"password" binding:"required"`
+	Remember bool   `form:"remember"`
 }
 
 // LoginResponse 登录响应数据
@@ -60,9 +64,29 @@ func (s *Service) Login(c *gin.Context, req *LoginRequest) (*LoginResponse, erro
 	// 更新登录信息
 	_ = s.repo.UpdateLoginInfo(c, admin.ID, c.ClientIP())
 
+	// 使用 UUID v7 生成令牌
+	tokenStr := uuid.Must(uuid.NewV7()).String()
+
+	// 计算过期时间：记住登录为 30 天，否则为 3 天
+	expiredAt := time.Now().Add(3 * 24 * time.Hour)
+	if req.Remember {
+		expiredAt = time.Now().Add(30 * 24 * time.Hour)
+	}
+
+	// 创建令牌
+	tk := &model.Token{
+		Token:     tokenStr,
+		Type:      "admin_login",
+		UserID:    admin.ID,
+		CreatedAt: time.Now(),
+		ExpiredAt: expiredAt,
+	}
+	if err := token.Instance().Create(c.Request.Context(), tk); err != nil {
+		return nil, errors.New("保存令牌失败")
+	}
+
 	return &LoginResponse{
 		Admin: *admin,
-		// TODO: 生成 Token（待实现认证模块）
-		Token: "",
+		Token: tokenStr,
 	}, nil
 }

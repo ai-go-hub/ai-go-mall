@@ -11,6 +11,8 @@ require (
 	gorm.io/plugin/dbresolver v1.6.2
 )
 
+require github.com/google/uuid v1.6.0
+
 require (
 	github.com/bytedance/gopkg v0.1.3 // indirect
 	github.com/bytedance/sonic v1.15.0 // indirect
