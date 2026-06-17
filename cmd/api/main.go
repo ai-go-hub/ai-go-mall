@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"ai-go-mall/config"
+	"ai-go-mall/internal/infra/config"
 	"ai-go-mall/internal/infra/database"
 	"ai-go-mall/internal/router"
 

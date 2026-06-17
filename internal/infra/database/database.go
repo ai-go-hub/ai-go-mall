@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"ai-go-mall/config"
+	"ai-go-mall/internal/infra/config"
 	"ai-go-mall/internal/model"
 
 	"github.com/gin-gonic/gin"
