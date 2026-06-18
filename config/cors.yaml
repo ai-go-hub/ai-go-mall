@@ -1,0 +1,15 @@
+cors:
+  origins:
+    - localhost
+    - 127.0.0.1
+  methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    - HEAD
+    - OPTIONS
+  headers:
+    - "*"
+  max_age: 86400

@@ -6,6 +6,7 @@ import (
 
 	"ai-go-mall/internal/infra/config"
 	"ai-go-mall/internal/infra/database"
+	"ai-go-mall/internal/middleware"
 	"ai-go-mall/internal/router"
 
 	"github.com/gin-gonic/gin"
@@ -23,6 +24,9 @@ func main() {
 	}
 
 	engine := gin.Default()
+
+	// 注册跨域中间件
+	engine.Use(middleware.CORS())
 
 	// 注册数据库中间件
 	engine.Use(database.Middleware())

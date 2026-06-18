@@ -47,6 +47,14 @@ type TokenConfig struct {
 	Driver string
 }
 
+// 跨域配置
+type CORSConfig struct {
+	Origins []string
+	Methods []string
+	Headers []string
+	MaxAge  int `mapstructure:"max_age"`
+}
+
 // 数据库配置
 type DatabaseConfig struct {
 	Type   string
@@ -60,6 +68,7 @@ type Config struct {
 	App      App
 	Server   Server
 	Token    TokenConfig
+	CORS     CORSConfig
 	Database DatabaseConfig
 }
 
