@@ -145,9 +145,8 @@ func Create() (*ClickResult, error) {
 	bounds := bg.Bounds()
 	bgW, bgH := bounds.Dx(), bounds.Dy()
 
-	correctElements := generateElements(captchaCfg.Length, captchaCfg.Elements)
-	confusionElements := generateElements(captchaCfg.ConfusionLength, captchaCfg.Elements)
-	allElements := append(correctElements, confusionElements...)
+	allElements := generateElements(captchaCfg.Length+captchaCfg.ConfusionLength, captchaCfg.Elements)
+	correctElements := allElements[:captchaCfg.Length]
 	shuffleElements(allElements)
 
 	var placedRects []image.Rectangle
@@ -230,7 +229,7 @@ func Check(req ClickRequest, deleteOnSuccess bool) (bool, error) {
 	scaleX := float64(req.RenderedWidth) / float64(info.ImageWidth)
 	scaleY := float64(req.RenderedHeight) / float64(info.ImageHeight)
 
-	const tolerance = 50
+	const tolerance = 0
 	for i, click := range req.Clicks {
 		ei := findElement(info.Elements, click.Element)
 		if ei == nil {
@@ -267,20 +266,27 @@ func generateElements(count int, elementTypes []string) []captchaElement {
 		available = append(available, elementType(e))
 	}
 
+	seen := make(map[string]bool, count)
 	elements := make([]captchaElement, 0, count)
 	for range count {
-		t := available[random.Int(0, len(available))]
-		elem := captchaElement{Type: t}
-		switch t {
-		case elemChinese:
-			elem.Value = randomChinese()
-		case elemUppercase:
-			elem.Value = randomUppercase()
-		case elemIcon:
-			idx := random.Int(0, len(icons))
-			elem.Value = icons[idx].EnName
+		for range 50 {
+			t := available[random.Int(0, len(available))]
+			elem := captchaElement{Type: t}
+			switch t {
+			case elemChinese:
+				elem.Value = randomChinese()
+			case elemUppercase:
+				elem.Value = randomUppercase()
+			case elemIcon:
+				idx := random.Int(0, len(icons))
+				elem.Value = icons[idx].EnName
+			}
+			if !seen[elem.Value] {
+				seen[elem.Value] = true
+				elements = append(elements, elem)
+				break
+			}
 		}
-		elements = append(elements, elem)
 	}
 	return elements
 }
@@ -379,7 +385,7 @@ func drawText(bg *image.RGBA, elem captchaElement, bgW, bgH int, placed []image.
 
 	drawer := &font.Drawer{
 		Dst:  bg,
-		Src:  image.NewUniform(random.RGB("dark")),
+		Src:  image.NewUniform(random.RGB("light")),
 		Face: face,
 		Dot:  fixed.P(x, y),
 	}
@@ -468,7 +474,7 @@ func getFontFace() (font.Face, error) {
 			return
 		}
 		fontFace, fontErr = opentype.NewFace(f, &opentype.FaceOptions{
-			Size:    40,
+			Size:    28,
 			DPI:     72,
 			Hinting: font.HintingFull,
 		})
