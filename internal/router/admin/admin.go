@@ -11,9 +11,9 @@ import (
 
 func init() {
 	registry.Register(func(r *gin.Engine) {
-		repo := repoAdmin.NewRepository()
-		svc := svcAdmin.NewService(repo)
-		h := handlerAdmin.NewHandler(svc)
+		repo := repoAdmin.NewAdminRepository()
+		svc := svcAdmin.NewAdminService(repo)
+		h := handlerAdmin.NewAdminHandler(svc)
 
 		group := r.Group("/admin")
 		h.RegisterRoutes(group)

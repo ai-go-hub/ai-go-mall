@@ -14,15 +14,15 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// Service 管理员服务，嵌入通用服务接口并扩展自定义方法
-type Service struct {
+// AdminService 管理员服务，嵌入通用服务接口并扩展自定义方法
+type AdminService struct {
 	service.IService[model.Admin]
-	repo *repoAdmin.Repository
+	repo *repoAdmin.AdminRepository
 }
 
-// NewService 创建管理员服务实例
-func NewService(repo *repoAdmin.Repository) *Service {
-	return &Service{
+// NewAdminService 创建管理员服务实例
+func NewAdminService(repo *repoAdmin.AdminRepository) *AdminService {
+	return &AdminService{
 		IService: service.NewService(repo),
 		repo:     repo,
 	}
@@ -42,7 +42,7 @@ type LoginResponse struct {
 }
 
 // Login 管理员登录
-func (s *Service) Login(c *gin.Context, req *LoginRequest) (*LoginResponse, error) {
+func (s *AdminService) Login(c *gin.Context, req *LoginRequest) (*LoginResponse, error) {
 	// 根据用户名查询管理员
 	admin, err := s.repo.FindByUsername(c, req.Username)
 	if err != nil {

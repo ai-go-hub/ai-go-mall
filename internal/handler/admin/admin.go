@@ -9,22 +9,22 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Handler 管理员控制器，嵌入通用控制器并扩展自定义方法
-type Handler struct {
+// AdminHandler 管理员控制器，嵌入通用控制器并扩展自定义方法
+type AdminHandler struct {
 	*handler.Handler[model.Admin]
-	svc *svcAdmin.Service
+	svc *svcAdmin.AdminService
 }
 
-// NewHandler 创建管理员控制器实例
-func NewHandler(svc *svcAdmin.Service) *Handler {
-	return &Handler{
+// NewAdminHandler 创建管理员控制器实例
+func NewAdminHandler(svc *svcAdmin.AdminService) *AdminHandler {
+	return &AdminHandler{
 		Handler: handler.NewHandler(svc),
 		svc:     svc,
 	}
 }
 
 // Login 管理员登录
-func (h *Handler) Login(c *gin.Context) {
+func (h *AdminHandler) Login(c *gin.Context) {
 	var req svcAdmin.LoginRequest
 	if err := c.ShouldBind(&req); err != nil {
 		response.Fail(c, response.WithMessage("参数错误: "+err.Error()))
@@ -40,8 +40,8 @@ func (h *Handler) Login(c *gin.Context) {
 	response.Success(c, response.WithData(result))
 }
 
-// RegisterRoutes 注册路由（包含基控制器路由 + 自定义路由）
-func (h *Handler) RegisterRoutes(group *gin.RouterGroup) {
+// RegisterRoutes 注册路由
+func (h *AdminHandler) RegisterRoutes(group *gin.RouterGroup) {
 	// 只注册自定义路由
 	// 不注册基控制器的 CRUD 路由
 	group.POST("/login", h.Login)
