@@ -3,6 +3,7 @@ package router
 import (
 	// 空白导入触发子目录 init() 自动注册路由
 	_ "ai-go-mall/internal/router/admin"
+	_ "ai-go-mall/internal/router/common"
 
 	"ai-go-mall/internal/router/registry"
 
