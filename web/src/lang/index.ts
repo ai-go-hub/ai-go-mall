@@ -108,10 +108,6 @@ const filePathToKeys = (lang: LangKey, path: string) => {
     const pathName = path.slice(path.lastIndexOf(langPathPrefix) + (langPathPrefix.length + 1), path.lastIndexOf('.'))
     const keys = pathName.split('/')
 
-    // index.ts 作为顶层，其余按目录层级拆分
-    if (keys.length === 1 && keys[0] === 'index') {
-        return []
-    }
     return keys
 }
 
