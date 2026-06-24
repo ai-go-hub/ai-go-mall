@@ -4,7 +4,6 @@
     <h1 style="font-size: 36px;color: #18202e;font-weight: 600;margin: 0 0 6px 0;">AI GO MALL</h1>
     <p style="font-size: 17px;color: #6a8bad;margin-bottom: 10px;">AI 执笔快速构建，人掌分寸雕琢商用级电商工程</p>
     <a href="https://qm.qq.com/q/GE0qcmaTo6" target="_blank">加 QQ 群</a> |
-    <a href="https://mp.weixin.qq.com/mp/appmsgalbum?action=getalbum&__biz=MzY4OTM2MTg5NA==&scene=1&album_id=4573525237677441028&count=3#wechat_redirect" target="_blank">开发手记（微信）</a> |
     <a href="https://juejin.cn/column/7654319240119369737" target="_blank">开发手记（掘金）</a> |
     <a href="https://blog.csdn.net/weixin_48453209/category_13179276.html" target="_blank">开发手记（CSDN）</a> |
     <a href="https://gitee.com/ai-go-hub/ai-go-mall" target="_blank">Gitee 仓库</a> |
@@ -90,7 +89,6 @@ pnpm dev
 ### 联系我们
 - [加 QQ 群：860406643](https://qm.qq.com/q/GE0qcmaTo6)
 - [Gitee 仓库](https://gitee.com/ai-go-hub/ai-go-mall)、[GitHub 仓库](https://github.com/ai-go-hub/ai-go-mall)
-- [开发手记（微信）](https://mp.weixin.qq.com/mp/appmsgalbum?action=getalbum&__biz=MzY4OTM2MTg5NA==&scene=1&album_id=4573525237677441028&count=3#wechat_redirect) 文章无自然推流，若您能点个关注，帮忙转发一下那就再好不过了~
 - [开发手记（掘金）](https://juejin.cn/column/7654319240119369737)
 - [开发手记（CSDN）](https://blog.csdn.net/weixin_48453209/category_13179276.html)
 - [官方邮箱 1094963513@qq.com](mailto:1094963513@qq.com)
