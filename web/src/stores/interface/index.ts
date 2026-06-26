@@ -1,4 +1,4 @@
-import { LangKey } from '/@/lang/index'
+import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 
 export interface AdminInfo {
     id: number
@@ -12,9 +12,22 @@ export interface AdminInfo {
     super: boolean
 }
 
-export interface Lang {
-    // 激活语言
-    active: LangKey
-    // 备用语言
-    fallback: LangKey
+export interface Menu {
+    // 从 API 加载到的原始菜单数据
+    rawData: RouteRecordRaw[]
+    // 次级菜单数据（一些布局模式会有两个菜单栏，可在此记录次级菜单栏的数据）
+    children: RouteRecordRaw[]
+    // 权限节点
+    authNode: Map<string, string[]>
+}
+
+export interface NavTab {
+    // tab 列表
+    list: RouteLocationNormalized[]
+    // 激活 tab 的 index
+    activeIndex: number
+    // 激活的 tab
+    activeRoute: RouteLocationNormalized | null
+    // 激活的 tab 是否全屏
+    activeFullScreen: boolean
 }
