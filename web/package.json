@@ -13,6 +13,7 @@
     },
     "dependencies": {
         "@element-plus/icons-vue": "2.3.2",
+        "@lucide/vue": "^1.21.0",
         "@vueuse/core": "14.2.1",
         "axios": "1.17.0",
         "echarts": "6.0.0",

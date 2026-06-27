@@ -4,6 +4,7 @@ import 'element-plus/theme-chalk/display.css'
 import mitt from 'mitt'
 import { createApp } from 'vue'
 import App from './App.vue'
+import { registerIcons } from '/@/components/icon/index.js'
 import { setupI18n } from '/@/lang/index'
 import router from '/@/router/index'
 import pinia from '/@/stores/index'
@@ -17,6 +18,9 @@ async function start() {
     app.use(elementPlus)
 
     await setupI18n(app)
+
+    // 全局注册
+    registerIcons(app) // icon
 
     app.mount('#app')
 
