@@ -11,3 +11,6 @@ arrayKey: 键名
 arrayValue: 键值
 add: 添加
 pleaseInstallEditor: 请先安装富文本编辑器
+pleaseSelectIcon: 请选择图标
+icon: 图标
+search: 搜索

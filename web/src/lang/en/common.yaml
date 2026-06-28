@@ -11,3 +11,6 @@ arrayKey: key
 arrayValue: value
 add: Add
 pleaseInstallEditor: Please install editor
+pleaseSelectIcon: Please select an icon
+icon: Icon
+search: Search

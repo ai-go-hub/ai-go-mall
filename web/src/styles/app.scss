@@ -33,3 +33,12 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 2147483599;
 }
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
