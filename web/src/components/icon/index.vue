@@ -41,7 +41,7 @@ export default defineComponent({
             return () => {
                 const component = getLucideComponent(name)
                 if (component) {
-                    return h(component, { ...props, ...attrs })
+                    return h(component, { class: 'icon ai-go-icon', ...props, ...attrs })
                 }
             }
         }
