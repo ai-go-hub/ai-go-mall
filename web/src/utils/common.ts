@@ -22,6 +22,36 @@ export const getGlobalProperties = () => {
 }
 
 /**
+ * 复制文本到剪贴板
+ * @param text 要复制的文本
+ * @returns 复制成功返回 true，失败返回 false
+ */
+export async function copy(text: string): Promise<boolean> {
+    try {
+        await navigator.clipboard.writeText(text)
+        return true
+    } catch {
+        // 降级方案：使用 execCommand（兼容旧浏览器或非 HTTPS 环境）
+        const textarea = document.createElement('textarea')
+        textarea.value = text
+        textarea.style.position = 'fixed'
+        textarea.style.left = '-9999px'
+        textarea.style.top = '-9999px'
+        document.body.appendChild(textarea)
+        textarea.focus()
+        textarea.select()
+        try {
+            document.execCommand('copy')
+            return true
+        } catch {
+            return false
+        } finally {
+            document.body.removeChild(textarea)
+        }
+    }
+}
+
+/**
  * 获取路由 path
  */
 export const getCurrentRoutePath = () => {
