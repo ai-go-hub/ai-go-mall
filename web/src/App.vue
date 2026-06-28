@@ -7,8 +7,9 @@
 <script setup lang="ts">
 import elEn from 'element-plus/es/locale/lang/en'
 import elZhCn from 'element-plus/es/locale/lang/zh-cn'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useConfig } from '/@/stores/config'
+import { init as viteInit } from '/@/utils/vite'
 
 const config = useConfig()
 
@@ -18,4 +19,8 @@ const elLocales: Record<string, typeof elEn> = {
 }
 
 const elLocale = computed(() => elLocales[config.lang.active] || elLocales[config.lang.fallback])
+
+onMounted(() => {
+    viteInit()
+})
 </script>

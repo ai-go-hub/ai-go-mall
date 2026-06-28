@@ -3,13 +3,14 @@ import { resolve } from 'path'
 import type { ConfigEnv, UserConfig } from 'vite'
 import { loadEnv } from 'vite'
 import { lucideIconSplitPlugin } from './src/components/icon/vitePlugin'
+import { customHotUpdate } from './src/utils/vite'
 
 // https://vitejs.cn/config/
 const viteConfig = ({ mode }: ConfigEnv): UserConfig => {
     const { VITE_PORT, VITE_OPEN, VITE_BASE_PATH, VITE_OUT_DIR } = loadEnv(mode, process.cwd())
 
     return {
-        plugins: [vue(), lucideIconSplitPlugin()],
+        plugins: [vue(), lucideIconSplitPlugin(), customHotUpdate()],
         root: process.cwd(),
         resolve: {
             alias: {
