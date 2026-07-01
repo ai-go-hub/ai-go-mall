@@ -1,4 +1,4 @@
-import { trimStart } from 'lodash-es'
+import { camelCase, snakeCase, trimStart } from 'lodash-es'
 import { getCurrentInstance } from 'vue'
 import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router'
 import router from '/@/router/index'
@@ -128,4 +128,38 @@ export const getMenuDataByRoute = (
     }
 
     return false
+}
+
+/**
+ * 递归将对象 key 从 snake_case 转为 camelCase
+ */
+export function keysToCamelCase(obj: any): any {
+    if (Array.isArray(obj)) {
+        return obj.map((item) => keysToCamelCase(item))
+    }
+    if (obj !== null && typeof obj === 'object') {
+        const result: Record<string, any> = {}
+        for (const key of Object.keys(obj)) {
+            result[camelCase(key)] = keysToCamelCase(obj[key])
+        }
+        return result
+    }
+    return obj
+}
+
+/**
+ * 递归将对象 key 从 camelCase 转为 snake_case
+ */
+export function keysToSnakeCase(obj: any): any {
+    if (Array.isArray(obj)) {
+        return obj.map((item) => keysToSnakeCase(item))
+    }
+    if (obj !== null && typeof obj === 'object') {
+        const result: Record<string, any> = {}
+        for (const key of Object.keys(obj)) {
+            result[snakeCase(key)] = keysToSnakeCase(obj[key])
+        }
+        return result
+    }
+    return obj
 }

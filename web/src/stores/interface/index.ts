@@ -5,8 +5,8 @@ export interface AdminInfo {
     username: string
     nickname: string
     avatar: string
-    last_login_at: string
-    last_login_ip: string
+    lastLoginAt: string
+    lastLoginIp: string
     token: string
     // 是否是 superAdmin（用于判定是否显示超管级按钮，不做任何权限判断）
     super: boolean

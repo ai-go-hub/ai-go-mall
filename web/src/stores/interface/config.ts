@@ -14,7 +14,7 @@ export interface Site {
     name: string
     version: string
     timezone: string
-    record_number: string
+    recordNumber: string
     initialized: boolean
 }
 

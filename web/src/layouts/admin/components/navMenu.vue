@@ -116,7 +116,7 @@
                     <el-avatar :size="70" :src="adminInfo.avatar"></el-avatar>
                     <div class="admin-info-other">
                         <div class="admin-info-name">{{ adminInfo.nickname }}</div>
-                        <div class="admin-info-lasttime">{{ adminInfo.last_login_at }}</div>
+                        <div class="admin-info-lasttime">{{ adminInfo.lastLoginAt }}</div>
                     </div>
                 </div>
                 <div class="admin-info-footer">

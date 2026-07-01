@@ -21,6 +21,7 @@ import { useMenu } from '/@/stores/menu'
 import { setNavTabsWidth } from '/@/utils/layout'
 import { getFirstMenu, handleAdminRoute } from '/@/utils/router'
 import { Session } from '/@/utils/storage'
+import { keysToCamelCase } from '/@/utils/common'
 
 defineOptions({
     components: { Default, Classic, Streamline, Double, LeftSplit },
@@ -54,7 +55,7 @@ onBeforeMount(() => {
  */
 const init = () => {
     // 临时 MOCK 数据
-    const res = {
+    const res = keysToCamelCase({
         data: {
             site: {
                 name: 'AI GO MALL',
@@ -172,7 +173,7 @@ const init = () => {
                 },
             ],
         },
-    }
+    })
 
     config.siteDataFill(res.data.site)
     config.setSiteInitStatus(true)

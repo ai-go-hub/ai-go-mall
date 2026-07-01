@@ -6,7 +6,7 @@
                 <img
                     ref="captchaImgRef"
                     class="captcha-img"
-                    :src="state.captcha.image_base64"
+                    :src="state.captcha.imageBase64"
                     :alt="i18n.global.t('common.captchaLoadFailed')"
                     @click.prevent="onRecord($event)"
                 />
@@ -62,9 +62,9 @@ const state = reactive({
     captcha: {
         key: '',
         elements: [] as string[],
-        image_width: 350,
-        image_height: 200,
-        image_base64: '',
+        imageWidth: 350,
+        imageHeight: 200,
+        imageBase64: '',
     },
 })
 
@@ -96,8 +96,8 @@ const onRecord = (event: MouseEvent) => {
             const data: ClickRequest = {
                 key: state.captcha.key,
                 clicks: [...state.clicks],
-                rendered_width: captchaImgRef.value!.width,
-                rendered_height: captchaImgRef.value!.height,
+                renderedWidth: captchaImgRef.value!.width,
+                renderedHeight: captchaImgRef.value!.height,
             }
             checkClickCaptcha(data, props.apiBaseURL)
                 .then(() => {
@@ -135,8 +135,8 @@ load()
     background-color: var(--el-color-white);
     position: fixed;
     z-index: v-bind('SYSTEM_ZINDEX');
-    left: calc(50% - v-bind('state.captcha.image_width + 24') / 2 * 1px);
-    top: calc(50% - v-bind('state.captcha.image_height + 200') / 2 * 1px);
+    left: calc(50% - v-bind('state.captcha.imageWidth + 24') / 2 * 1px);
+    top: calc(50% - v-bind('state.captcha.imageHeight + 200') / 2 * 1px);
     border-radius: 10px;
     box-shadow:
         0 0 0 1px hsla(0, 0%, 100%, 0.3) inset,
@@ -150,8 +150,8 @@ load()
     .captcha-img-box {
         position: relative;
         .captcha-img {
-            width: v-bind('state.captcha.image_width') px;
-            height: v-bind('state.captcha.image_height') px;
+            width: v-bind('state.captcha.imageWidth') px;
+            height: v-bind('state.captcha.imageHeight') px;
             border: none;
             cursor: pointer;
         }

@@ -7,11 +7,11 @@ export const useAdminInfo = defineStore('adminInfo', {
     state: (): AdminInfo => {
         return {
             id: 0,
+            avatar: '',
             username: '',
             nickname: '',
-            avatar: '',
-            last_login_at: '',
-            last_login_ip: '',
+            lastLoginAt: '',
+            lastLoginIp: '',
             token: '',
             super: false,
         }

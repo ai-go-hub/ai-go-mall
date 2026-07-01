@@ -24,7 +24,7 @@ export const useConfig = defineStore(
             name: '',
             version: '',
             timezone: '',
-            record_number: '',
+            recordNumber: '',
             initialized: false,
         })
 

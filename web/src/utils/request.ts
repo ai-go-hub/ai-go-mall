@@ -3,6 +3,7 @@ import axios from 'axios'
 import { ElLoading, ElMessage } from 'element-plus'
 import i18n from '/@/lang'
 import { useAdminInfo } from '/@/stores/adminInfo'
+import { keysToCamelCase, keysToSnakeCase } from '/@/utils/common'
 
 // ==================== 类型定义 ====================
 
@@ -17,6 +18,8 @@ export interface RequestOptions {
     showErrorMessage?: boolean
     // 是否显示网络错误提示（HTTP 4xx/5xx 等），默认 true
     showNetworkErrorMessage?: boolean
+    // 是否做数据 key 的命名方式转换（请求 camelCase → snake_case，响应 snake_case → camelCase），默认 true
+    convertCase?: boolean
 }
 
 interface InternalRequestConfig extends InternalAxiosRequestConfig {
@@ -141,6 +144,26 @@ instance.interceptors.request.use(
             config.headers.set('Authorization', `Bearer ${adminInfo.token}`)
         }
 
+        // 将请求数据的 key 从 camelCase 转为 snake_case
+        // 不转换 FormData 和 URLSearchParams，因为它们本质上是类数组或二进制容器，转换可能丢失数据
+        if (opts.convertCase !== false) {
+            if (
+                config.data &&
+                typeof config.data === 'object' &&
+                !(
+                    config.data instanceof FormData ||
+                    config.data instanceof Blob ||
+                    config.data instanceof ArrayBuffer ||
+                    config.data instanceof URLSearchParams
+                )
+            ) {
+                config.data = keysToSnakeCase(config.data)
+            }
+            if (config.params && typeof config.params === 'object' && !(config.params instanceof URLSearchParams)) {
+                config.params = keysToSnakeCase(config.params)
+            }
+        }
+
         return config
     },
     (error) => Promise.reject(error)
@@ -163,6 +186,11 @@ instance.interceptors.response.use(
 
         if (opts.showSuccessMessage) {
             ElMessage.success(response.data.message || i18n.global.t('common.operationSuccess'))
+        }
+
+        // 将响应数据的 key 从 snake_case 转为 camelCase
+        if (opts.convertCase !== false && response.data?.data) {
+            response.data.data = keysToCamelCase(response.data.data)
         }
 
         return response

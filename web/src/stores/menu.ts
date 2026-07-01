@@ -47,7 +47,7 @@ export const useMenu = defineStore('menu', {
  */
 function encodeRoutesURI(data: RouteRecordRaw[]) {
     data.forEach((item) => {
-        if (item.meta?.menu_type == 'iframe') {
+        if (item.meta?.menuType == 'iframe') {
             item.path = adminBaseRoutePath + '/iframe/' + encodeURIComponent(item.path)
         }
 
