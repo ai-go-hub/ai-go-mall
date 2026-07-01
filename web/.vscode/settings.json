@@ -20,5 +20,6 @@
     "i18n-ally.sourceLanguage": "zh-cn",
     "i18n-ally.displayLanguage": "zh-cn",
     "i18n-ally.enabledParsers": ["yaml", "json"],
-    "i18n-ally.enabledFrameworks": ["vue", "vue-sfc"]
+    "i18n-ally.enabledFrameworks": ["vue", "vue-sfc"],
+    "i18n-ally.keystyle": "nested"
 }
